@@ -1,5 +1,8 @@
 .item {
-  background: black;
-  padding: 5px;
-  color: white;
+  background: #b0c4ca;
+  border: 1px solid black;
+  margin-bottom: 5px;
+  padding: 15px;
+  color: black;
+  font-weight: 600;
 }
