@@ -23,9 +23,6 @@ function LinkedList() {
     delete: function(value) {
       var curr = head;
 
-      console.log(head.value.index);
-      console.log(value);
-
       if (head.value.index === value) {
         head = head.next;
         return;
@@ -57,10 +54,9 @@ function LinkedList() {
 
         curr = curr.next;
       }
-
       return found;
     },
-    get size() {
+    size: function() {
       return length;
     },
     print: function() {
