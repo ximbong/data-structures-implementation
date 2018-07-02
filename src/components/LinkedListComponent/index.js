@@ -42,22 +42,36 @@ class LinkedListComponent extends Component {
     e.preventDefault();
   };
 
-  handleSearch = e => {
+  handleSearch = (e, searchValue) => {
     e.preventDefault();
+
+    this.setState({
+      searchResult: linkedlist.search(searchValue)
+    });
   };
 
   render() {
-    const count = this.state.count;
-    const deleteValue = parseInt(this.state.deleteValue);
-    const searchValue = parseInt(this.state.searchValue);
-    console.log(this.state.data);
+    const { count, searchResult, deleteValue, searchValue } = this.state;
+
+    const size = linkedlist.size();
+
+    const resultRow =
+      searchResult !== "" && //if searchResult is not empty
+      (!searchResult ? ( //if searchResult is undefined
+        <Row className="details">No result found.</Row>
+      ) : (
+        <Row className="details">
+          Result found. Next node:{" "}
+          {!searchResult.next ? "null" : searchResult.next.value.index}
+        </Row>
+      ));
 
     const ItemList = [...linkedlist.print()].map((e, i) => {
       return <Item index={e.index} key={i} />;
     });
 
     return (
-      <Col xs={12} md={4} className="text-center col-space">
+      <Col xs={4} className="text-center col-space">
         <Row className="buttonDiv">
           <Button
             bsStyle="success"
@@ -68,12 +82,12 @@ class LinkedListComponent extends Component {
               this.updateLinkedList(linkedlist);
             }}
           >
-            Insert
+            Add to front
           </Button>
           <form
             onSubmit={e => {
               this.handleDelete(e);
-              linkedlist.delete(deleteValue);
+              linkedlist.delete(parseInt(deleteValue, 10));
               this.updateLinkedList(linkedlist);
             }}
           >
@@ -81,23 +95,26 @@ class LinkedListComponent extends Component {
               type="text"
               onChange={e => this.handle(e, "delete")}
               placeholder="Delete value"
-              value={this.state.deleteValue}
+              value={deleteValue}
             />
           </form>
           <form
             onSubmit={e => {
-              this.handleSearch(e);
-              linkedlist.search(searchValue);
+              this.handleSearch(e, parseInt(searchValue, 10));
             }}
           >
             <FormControl
               type="text"
               onChange={e => this.handle(e, "search")}
               placeholder="Search value"
-              value={this.state.searchValue}
+              value={searchValue}
             />
           </form>
         </Row>
+        <Row className="details">
+          There is {size} item(s) in the linked list.
+        </Row>
+        {resultRow}
         <Row>{ItemList}</Row>
       </Col>
     );
