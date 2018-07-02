@@ -37,6 +37,7 @@ class QueueComponent extends Component {
 
     return (
       <Col xs={4} className="text-center col-space">
+        <h1>Queue</h1>
         <Row className="buttonDiv">
           <Button
             bsStyle="success"

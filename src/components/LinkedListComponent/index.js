@@ -20,21 +20,9 @@ class LinkedListComponent extends Component {
     };
   }
 
-  handle = (e, action) => {
+  handleData = (e, action) => {
     this.setState({
       [`${action}Value`]: e.target.value
-    });
-  };
-
-  updateLinkedList = linkedlist => {
-    this.setState({
-      data: linkedlist.print()
-    });
-  };
-
-  increaseCount = () => {
-    this.setState({
-      count: this.state.count + 1
     });
   };
 
@@ -47,6 +35,18 @@ class LinkedListComponent extends Component {
 
     this.setState({
       searchResult: linkedlist.search(searchValue)
+    });
+  };
+
+  updateLinkedList = linkedlist => {
+    this.setState({
+      data: linkedlist.print()
+    });
+  };
+
+  increaseCount = () => {
+    this.setState({
+      count: this.state.count + 1
     });
   };
 
@@ -72,6 +72,7 @@ class LinkedListComponent extends Component {
 
     return (
       <Col xs={4} className="text-center col-space">
+        <h1>Linked List</h1>
         <Row className="buttonDiv">
           <Button
             bsStyle="success"
@@ -93,7 +94,7 @@ class LinkedListComponent extends Component {
           >
             <FormControl
               type="text"
-              onChange={e => this.handle(e, "delete")}
+              onChange={e => this.handleData(e, "delete")}
               placeholder="Delete value"
               value={deleteValue}
             />
@@ -105,7 +106,7 @@ class LinkedListComponent extends Component {
           >
             <FormControl
               type="text"
-              onChange={e => this.handle(e, "search")}
+              onChange={e => this.handleData(e, "search")}
               placeholder="Search value"
               value={searchValue}
             />
