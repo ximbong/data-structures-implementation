@@ -10,7 +10,8 @@ class StackComponent extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      data: []
+      data: [],
+      count: 0
     };
   }
 
@@ -20,18 +21,28 @@ class StackComponent extends Component {
     });
   };
 
+  increaseCount = () => {
+    this.setState({
+      count: this.state.count + 1
+    });
+  };
+
   render() {
+    const count = this.state.count;
+
     const ItemList = [...stack.print()].map((e, i) => {
-      return <Item index={i} key={i} />;
+      return <Item index={e.index} key={i} />;
     });
 
     return (
-      <Col xs={12} md={4} className="text-center">
-        <Row>
+      <Col xs={12} md={4} className="text-center col-space">
+        <Row className="buttonDiv">
           <Button
             bsStyle="success"
+            className="btn-block"
             onClick={() => {
-              stack.push("1");
+              stack.push({ index: count });
+              this.increaseCount();
               this.updateStack(stack);
             }}
           >
@@ -39,6 +50,7 @@ class StackComponent extends Component {
           </Button>
           <Button
             bsStyle="warning"
+            className="btn-block"
             onClick={() => {
               stack.pop();
               this.updateStack(stack);
@@ -48,6 +60,7 @@ class StackComponent extends Component {
           </Button>
           <Button
             bsStyle="danger"
+            className="btn-block"
             onClick={() => {
               stack.stackEmpty();
               this.updateStack(stack);
