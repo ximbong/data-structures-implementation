@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Row, Col, Button, ButtonToolbar } from "react-bootstrap";
+import { Row, Col, Button } from "react-bootstrap";
 
 import Queue from "../../data-structures/queue";
 import Item from "../../components/Item";
@@ -29,15 +29,14 @@ class QueueComponent extends Component {
 
   render() {
     const count = this.state.count;
-
-    console.log(...queue.print());
+    const size = queue.size();
 
     const ItemList = [...queue.print()].map((e, i) => {
       return <Item index={e.index} key={i} />;
     });
 
     return (
-      <Col xs={12} md={4} className="text-center col-space">
+      <Col xs={4} className="text-center col-space">
         <Row className="buttonDiv">
           <Button
             bsStyle="success"
@@ -71,6 +70,7 @@ class QueueComponent extends Component {
             Empty
           </Button>
         </Row>
+        <Row className="details">There is {size} item(s) in the queue.</Row>
         <Row>{ItemList}</Row>
       </Col>
     );

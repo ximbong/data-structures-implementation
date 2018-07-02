@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Row, Col, Button, ButtonToolbar } from "react-bootstrap";
+import { Row, Col, Button } from "react-bootstrap";
 
 import Stack from "../../data-structures/stack";
 import Item from "../../components/Item";
@@ -29,13 +29,14 @@ class StackComponent extends Component {
 
   render() {
     const count = this.state.count;
+    const size = stack.size();
 
     const ItemList = [...stack.print()].map((e, i) => {
       return <Item index={e.index} key={i} />;
     });
 
     return (
-      <Col xs={12} md={4} className="text-center col-space">
+      <Col xs={4} className="text-center col-space">
         <Row className="buttonDiv">
           <Button
             bsStyle="success"
@@ -69,6 +70,7 @@ class StackComponent extends Component {
             Empty
           </Button>
         </Row>
+        <Row className="details">There is {size} item(s) in the stack.</Row>
         <Row>{ItemList}</Row>
       </Col>
     );
