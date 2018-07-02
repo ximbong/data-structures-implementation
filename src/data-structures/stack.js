@@ -1,52 +1,54 @@
-function Stack() {
-  let stack = {};
-  let stackSize = 0;
+class Stack {
+  constructor() {
+    let stack = {};
+    let stackSize = 0;
 
-  return {
-    push: function(item) {
-      stack[stackSize] = item;
-      stackSize++;
-    },
-    pop: function() {
-      if (this.isEmpty()) {
-        return undefined;
+    return {
+      push(item) {
+        stack[stackSize] = item;
+        stackSize++;
+      },
+      pop() {
+        if (this.isEmpty()) {
+          return undefined;
+        }
+
+        stackSize--;
+
+        const item = stack[stackSize];
+        delete stack[stackSize];
+
+        return item;
+      },
+      peek() {
+        if (this.isEmpty()) {
+          return undefined;
+        }
+
+        return stack[stackSize - 1];
+      },
+      stackEmpty() {
+        while (!this.isEmpty()) {
+          this.pop();
+        }
+      },
+      isEmpty() {
+        return stackSize === 0;
+      },
+      size() {
+        return stackSize;
+      },
+      print() {
+        const result = [];
+
+        for (const key in stack) {
+          result.unshift(stack[key]);
+        }
+
+        return result;
       }
-
-      stackSize--;
-
-      const item = stack[stackSize];
-      delete stack[stackSize];
-
-      return item;
-    },
-    peek: function() {
-      if (this.isEmpty()) {
-        return undefined;
-      }
-
-      return stack[stackSize - 1];
-    },
-    stackEmpty: function() {
-      while (!this.isEmpty()) {
-        this.pop();
-      }
-    },
-    isEmpty: function() {
-      return stackSize === 0;
-    },
-    size: function() {
-      return stackSize;
-    },
-    print: function() {
-      const result = [];
-
-      for (const key in stack) {
-        result.unshift(stack[key]);
-      }
-
-      return result;
-    }
-  };
+    };
+  }
 }
 
 export default Stack;

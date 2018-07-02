@@ -1,77 +1,79 @@
-function Node(value) {
-  this.value = value;
-  this.next = undefined;
+class Node {
+  constructor(value) {
+    this.value = value;
+    this.next = undefined;
+  }
 }
 
-function LinkedList() {
-  var head = undefined;
-  var length = 0;
+class LinkedList {
+  constructor() {
+    let head = undefined;
+    let length = 0;
+    return {
+      insert(item) {
+        if (!item) return;
 
-  return {
-    insert: function(item) {
-      if (!item) return;
+        let node = new Node(item);
 
-      var node = new Node(item);
+        if (head) {
+          node.next = head;
+        }
 
-      if (head) {
-        node.next = head;
-      }
+        head = node;
+        length++;
+      },
+      delete(value) {
+        let curr = head;
 
-      head = node;
-      length++;
-    },
-    delete: function(value) {
-      var curr = head;
+        if (head.value.index === value) {
+          head = head.next;
+          return;
+        }
 
-      if (head.value.index === value) {
-        head = head.next;
-        return;
-      }
+        while (curr) {
+          if (curr.next) {
+            let next = curr.next;
 
-      while (curr) {
-        if (curr.next) {
-          var next = curr.next;
+            if (next.value.index === value) {
+              curr.next = next.next;
+              length--;
+              break;
+            }
+          }
 
-          if (next.value.index === value) {
-            curr.next = next.next;
-            length--;
+          curr = curr.next;
+        }
+      },
+      search(value) {
+        let curr = head;
+        let found = undefined;
+
+        while (curr) {
+          if (curr.value.index === value) {
+            found = curr;
             break;
           }
+
+          curr = curr.next;
+        }
+        return found;
+      },
+      size() {
+        return length;
+      },
+      print() {
+        const result = [];
+
+        let curr = head;
+        while (curr) {
+          result.push(curr.value);
+          curr = curr.next;
         }
 
-        curr = curr.next;
+        return result;
       }
-    },
-    search: function(value) {
-      var curr = head;
-      var found = undefined;
-
-      while (curr) {
-        if (curr.value.index === value) {
-          found = curr;
-          break;
-        }
-
-        curr = curr.next;
-      }
-      return found;
-    },
-    size: function() {
-      return length;
-    },
-    print: function() {
-      var result = [];
-
-      var curr = head;
-      while (curr) {
-        result.push(curr.value);
-
-        curr = curr.next;
-      }
-
-      return result;
-    }
-  };
+    };
+  }
 }
 
 export default LinkedList;
